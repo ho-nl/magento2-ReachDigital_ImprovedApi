@@ -4,7 +4,7 @@
   ~ See LICENSE.txt for license details.
   -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <route url="/V1/products/:sku" method="PUT">
+    <route url="/V1/products/default/:sku" method="PUT">
         <service class="ReachDigital\ImprovedApi\Api\ProductRepositoryInterface" method="update"/>
         <resources>
             <resource ref="Magento_Catalog::products"/>
