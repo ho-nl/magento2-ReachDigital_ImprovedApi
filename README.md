@@ -3,12 +3,13 @@
 ## Update Product
 Will update product attributes only, extension attributes are not supported and should be updated using their own API call.
 
-### Endpoint
+### Interface
+`reachDigitalImprovedApiProductRepositoryV1`
 
-`PUT /V1/products/:sku`
+### Endpoint
+`PUT /V1/products/default/:sku`
 
 ### Body
-
 > SKU is mandatory in both the endpoint and the `product` body of the request.
 
 ```json
