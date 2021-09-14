@@ -1,7 +1,7 @@
 # magento2-ReachDigital_ImprovedApi
 
 ## Update Product
-Will update product attributes only, extension attributes are not supported and should be updated using their own API call.
+Allows updating attribute data only for the given attributes, without requiring all other attribute data to be passed as well. Extension attributes are not supported and should be updated using their own API call.
 
 ### Interface
 `reachDigitalImprovedApiProductRepositoryV1`
