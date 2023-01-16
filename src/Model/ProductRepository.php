@@ -26,12 +26,12 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
     /**
      * {@inheritdoc}
      */
-    public function update(ProductInterface $productUpdate, ProductInterface $productDefault = null)
+    public function update(ProductInterface $product, ProductInterface $productDefault = null)
     {
-        $existingProduct = $this->productRepository->get($productUpdate->getSku());
+        $existingProduct = $this->productRepository->get($product->getSku());
 
         /** @noinspection PhpParamsInspection */
-        $dataChanged = $this->applyData($existingProduct, $productUpdate, $productDefault);
+        $dataChanged = $this->applyData($existingProduct, $product, $productDefault);
         if ($dataChanged) {
             $this->productRepository->save($existingProduct);
         }
