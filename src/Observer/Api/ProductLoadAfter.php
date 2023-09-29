@@ -1,6 +1,6 @@
 <?php
 
-namespace ReachDigital\ImprovedApi\Api\Observer\Api;
+namespace ReachDigital\ImprovedApi\Observer\Api;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
