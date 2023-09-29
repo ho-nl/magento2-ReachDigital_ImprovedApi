@@ -28,7 +28,7 @@ class SetUseDefaultValuesToProduct implements ObserverInterface
             }
         }
 
-        if (!empty($use_default_attributes) && $storeId === "0") {
+        if (!empty($use_default_attributes) && (int)$storeId === 0) {
             throw new \Exception(
                 'Can\'t set default values if there is no store view specified'
             );
