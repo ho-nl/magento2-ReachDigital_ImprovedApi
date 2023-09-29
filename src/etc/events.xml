@@ -2,9 +2,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="magento_catalog_api_data_productinterface_load_after">
-        <observer name="product_api_load" instance="ReachDigital\ImprovedApi\Observer\Api\ProductLoadAfter"/>
+        <observer name="reachdigital_set_use_default_values_to_product"
+                  instance="ReachDigital\ImprovedApi\Observer\Api\AddUseDefaultAttributesToProductApi"/>
     </event>
     <event name="magento_catalog_api_data_productinterface_save_before">
-        <observer name="product_api_load" instance="ReachDigital\ImprovedApi\Observer\Api\ProductSaveBefore"/>
+        <observer name="reachdigital_add_use_default_attributes_to_product_api"
+                  instance="ReachDigital\ImprovedApi\Observer\Api\SetUseDefaultValuesToProduct"/>
     </event>
 </config>

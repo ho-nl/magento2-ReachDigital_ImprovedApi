@@ -6,32 +6,31 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Store\Model\StoreManager;
 
-class ProductSaveBefore implements ObserverInterface
+class SetUseDefaultValuesToProduct implements ObserverInterface
 {
-    protected $storeManager;
+    protected StoreManager $storeManager;
 
     public function __construct(StoreManager $storeManager)
     {
         $this->storeManager = $storeManager;
     }
 
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
         $entity = $observer->getEvent()->getEntity();
         $extensionAttributes = $entity->getExtensionAttributes();
         $storeId = $this->storeManager->getStore()->getId();
 
-        // @TODO check if use default is available for attribute in store view
         $use_default_attributes = $extensionAttributes->getUseDefault();
         if (!empty($use_default_attributes) && is_array($use_default_attributes)) {
-            foreach ($extensionAttributes->getUseDefault() as $index => $attribute_code) {
+            foreach ($extensionAttributes->getUseDefault() as $attribute_code) {
                 $entity->setData($attribute_code, null);
             }
         }
 
         if (!empty($use_default_attributes) && $storeId === "0") {
             throw new \Exception(
-                `Can't set default values if there is no store view specified`
+                'Can\'t set default values if there is no store view specified'
             );
         }
     }

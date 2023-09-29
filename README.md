@@ -42,7 +42,7 @@ well. Extension attributes are not supported and should be updated using their o
 ```json
 {
   "product": {
-    "name": "feestmuts",
+    "weight": "4",
     "sku": "testing-muts",
     "price": 1224,
     "extension_attributes": {

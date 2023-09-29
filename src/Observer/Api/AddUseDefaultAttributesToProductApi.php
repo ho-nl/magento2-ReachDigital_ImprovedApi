@@ -1,22 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace ReachDigital\ImprovedApi\Observer\Api;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
-class ProductLoadAfter implements ObserverInterface
+class AddUseDefaultAttributesToProductApi implements ObserverInterface
 {
-
-    /**
-     * @param Observer $observer
-     */
     public function execute(Observer $observer)
     {
         $entity = $observer->getEvent()->getEntity();
         $extensionAttributes = $entity->getExtensionAttributes();
 
-        // @TODO check if its possible to load attributes that has use default checked
         $attr = $entity->getData('use_default') ?? [];
         $extensionAttributes->setUseDefault($attr);
         $entity->setExtensionAttributes($extensionAttributes);
