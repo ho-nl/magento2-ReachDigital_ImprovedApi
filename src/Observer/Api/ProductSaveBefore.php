@@ -22,6 +22,7 @@ class ProductSaveBefore implements ObserverInterface
         $extensionAttributes = $entity->getExtensionAttributes();
         $storeId = $this->storeManager->getStore()->getId();
 
+
         // @TODO check if use default is available for attribute in store view
         $use_default_attributes = $extensionAttributes->getUseDefault();
         if (!empty($use_default_attributes) && is_array($use_default_attributes)) {
@@ -29,7 +30,8 @@ class ProductSaveBefore implements ObserverInterface
                 $entity->setData($attribute_code, null);
             }
         }
-        if (!empty($use_default_attributes) && $storeId === 0) {
+
+        if (!empty($use_default_attributes) && $storeId === "0") {
             throw new \Exception(
                 `Can't set default values if there is no store view specified`
             );
