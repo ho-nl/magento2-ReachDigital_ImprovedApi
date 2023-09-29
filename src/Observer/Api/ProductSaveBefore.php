@@ -15,13 +15,11 @@ class ProductSaveBefore implements ObserverInterface
         $this->storeManager = $storeManager;
     }
 
-
     public function execute(Observer $observer)
     {
         $entity = $observer->getEvent()->getEntity();
         $extensionAttributes = $entity->getExtensionAttributes();
         $storeId = $this->storeManager->getStore()->getId();
-
 
         // @TODO check if use default is available for attribute in store view
         $use_default_attributes = $extensionAttributes->getUseDefault();
