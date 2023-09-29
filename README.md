@@ -1,15 +1,20 @@
 # magento2-ReachDigital_ImprovedApi
 
 ## Update Product
-Allows updating attribute data only for the given attributes, without requiring all other attribute data to be passed as well. Extension attributes are not supported and should be updated using their own API call.
+
+Allows updating attribute data only for the given attributes, without requiring all other attribute data to be passed as
+well. Extension attributes are not supported and should be updated using their own API call.
 
 ### Interface
+
 `reachDigitalImprovedApiProductRepositoryV1`
 
 ### Endpoint
+
 `PUT /V1/products/default/:sku`
 
 ### Body
+
 > SKU is mandatory in both the endpoint and the `product` body of the request.
 
 ```json
@@ -25,6 +30,26 @@ Allows updating attribute data only for the given attributes, without requiring 
   "productDefault": {
     "custom_attributes": {
       "description": "Default Description."
+    }
+  }
+}
+```
+
+###
+
+> There is an option to set fields to their default value by specifying the stores in REST url and values in the json
+
+```json
+{
+  "product": {
+    "name": "feestmuts",
+    "sku": "testing-muts",
+    "price": 1224,
+    "extension_attributes": {
+      "use_default": [
+        "name",
+        "status"
+      ]
     }
   }
 }
