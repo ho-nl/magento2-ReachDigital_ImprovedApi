@@ -15,6 +15,6 @@
     </event>
     <event name="magento_catalog_api_data_categoryinterface_save_before">
         <observer name="reachdigital_add_use_default_attributes_to_category_api"
-                  instance="ReachDigital\ImprovedApi\Observer\Api\SetUseDefaultValuesCategoryApi"/>
+                  instance="ReachDigital\ImprovedApi\Observer\Api\SetUseDefaultValuesToCategoryApi"/>
     </event>
 </config>
