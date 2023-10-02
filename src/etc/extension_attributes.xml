@@ -4,4 +4,7 @@
     <extension_attributes for="Magento\Catalog\Api\Data\ProductInterface">
         <attribute code="use_default" type="string[]"/>
     </extension_attributes>
+    <extension_attributes for="Magento\Catalog\Api\Data\CategoryInterface">
+        <attribute code="use_default" type="string[]"/>
+    </extension_attributes>
 </config>
