@@ -6,7 +6,6 @@
         "magento/product-community-edition": "^2.3"
     },
     "type": "magento2-module",
-    "version": "0.1.5",
     "autoload": {
         "files": [
             "registration.php"
