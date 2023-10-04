@@ -9,12 +9,4 @@
         <observer name="reachdigital_add_use_default_attributes_to_product_api"
                   instance="ReachDigital\ImprovedApi\Observer\Api\SetUseDefaultValuesToProduct"/>
     </event>
-    <event name="magento_catalog_api_data_categoryinterface_load_after">
-        <observer name="reachdigital_set_use_default_values_to_category_api"
-                  instance="ReachDigital\ImprovedApi\Observer\Api\AddUseDefaultAttributesToCategoryApi"/>
-    </event>
-    <event name="magento_catalog_api_data_categoryinterface_save_before">
-        <observer name="reachdigital_add_use_default_attributes_to_category_api"
-                  instance="ReachDigital\ImprovedApi\Observer\Api\SetUseDefaultValuesToCategoryApi"/>
-    </event>
 </config>
