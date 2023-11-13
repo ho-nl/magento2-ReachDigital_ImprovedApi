@@ -7,4 +7,7 @@
     <extension_attributes for="Magento\Catalog\Api\Data\CategoryInterface">
         <attribute code="use_default" type="string[]"/>
     </extension_attributes>
+    <extension_attributes for="Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface">
+        <attribute code="url_content" type="ReachDigital\ImprovedApi\Api\UrlContentInterface"/>
+    </extension_attributes>
 </config>

@@ -5,9 +5,19 @@
   -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="ReachDigital\ImprovedApi\Api\ProductRepositoryInterface" type="ReachDigital\ImprovedApi\Model\ProductRepository"/>
-
+    <preference for="ReachDigital\ImprovedApi\Api\UrlContentInterface" type="ReachDigital\ImprovedApi\Model\Media\UrlEntry" />
+    <type name="Magento\Catalog\Model\Product\Attribute\Backend\Media\EntryConverterPool">
+        <arguments>
+            <argument name="mediaGalleryEntryConvertersCollection" xsi:type="array">
+                <item name="url" xsi:type="object">ReachDigital\ImprovedApi\Model\Media\ImageUrlEntryConverter</item>
+            </argument>
+        </arguments>
+    </type>
     <type name="Magento\Catalog\Api\CategoryRepositoryInterface">
         <plugin name="reachDigitalHandleUseDefaultValuesForCategoryAttribute"
                 type="ReachDigital\ImprovedApi\Plugin\HandleUseDefaultValuesForCategoryAttribute"/>
+    </type>
+    <type name="Magento\Catalog\Api\ProductAttributeMediaGalleryManagementInterface">
+        <plugin name="reachDigitalCreateMediaUrlContent" type="ReachDigital\ImprovedApi\Plugin\Media\CreateMediaUrlContent"/>
     </type>
 </config>

@@ -57,3 +57,49 @@ well. Extension attributes are not supported and should be updated using their o
 
 `productDefault` is optional. It's a product object that contains a list of default values.
 These values will be used _only_ if they don't exist already. 
+
+## Update Product Media
+
+This module introduces a new way to upload images. We can use the media_type
+`url` to upload images from an url instead of a base64 encoded image string.
+
+Uploading an image using the url is possible while updating a product or
+creating a new gallery entry. The following example is a call example for the
+`V1/products/:sku/media` endpoint.
+
+See the
+[official docs](https://developer.adobe.com/commerce/webapi/rest/quick-reference/)
+for more information.
+
+### Endpoints
+
+`PUT /V1/products/:sku`
+
+`POST /V1/products/:sku/media`
+
+### Body
+
+> `type` is optional, if not provided the type wil be determined by the response
+> headers of the url.
+
+> `name` is optional, if not provided a name wil be used based on the provided
+> url.
+
+```json
+{
+  "entry": {
+    "media_type": "url",
+    "label": "macbook",
+    "position": 0,
+    "disabled": false,
+    "types": ["base", "small", "thumbnail"],
+    "extension_attributes": {
+      "url_content": {
+        "url": "https://images.unsplash.com/flagged/1/apple-gear-looking-pretty.jpg",
+        "type": "image/jpeg",
+        "name": "example_image.jpeg"
+      }
+    }
+  }
+}
+```
