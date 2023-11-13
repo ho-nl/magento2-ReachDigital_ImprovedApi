@@ -37,7 +37,7 @@ class CreateMediaUrlContent
     public function beforeCreate(
         ProductAttributeMediaGalleryManagementInterface $subject,
         $sku,
-        ProductAttributeMediaGalleryEntryInterface $entry,
+        ProductAttributeMediaGalleryEntryInterface $entry
     ) {
         if ($entry->getMediaType() == $this->imageUrlEntryConverter->getMediaEntryType()) {
             $urlEntry = $this->imageUrlEntryConverter->convertFrom($entry);
