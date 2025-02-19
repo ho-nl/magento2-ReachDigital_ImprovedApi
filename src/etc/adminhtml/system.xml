@@ -17,8 +17,9 @@
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable quick product update</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Note: This uses the action `updateAttributes` and the stockItemRepository
-                        instead of the product repository to update products faster but might give issues when using msi.</comment>
+                    <comment>Note: This uses the action updateAttributes and the StockRegistry
+                        instead of the product repository to update products faster but might give issues when using msi
+                        and won't work with certain changes like media_gallery or linked_products.</comment>
                 </field>
 
             </group>

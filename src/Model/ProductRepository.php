@@ -13,7 +13,7 @@ use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\Product\Action as ProductAction;
 use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 use Magento\Store\Model\StoreManagerInterface;
-use Magento\CatalogInventory\Api\StockItemRepositoryInterface;
+use Magento\CatalogInventory\Api\StockRegistryInterface;
 
 class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductRepositoryInterface
 {
@@ -30,32 +30,43 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
     /** @var ProductRepositoryInterface $productRepository */
     private $productRepository;
 
-    private ProductAction $productAction;
-
-    private ProductResource $productResource;
-
-    private StoreManagerInterface $storeManager;
-
-    private StockItemRepositoryInterface $stockItemRepository;
-
-    private ConfigInterface $config;
+    /**
+     * @var ProductAction
+     */
+    private $productAction;
 
     /**
-     * @param ProductRepositoryInterface $productRepository
+     * @var ProductResource
      */
+    private $productResource;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
+     * @var StockRegistryInterface
+     */
+    private $stockRegistry;
+
+    /** @var ConfigInterface  */
+    private $config;
+
+    /**  @param ProductRepositoryInterface $productRepository */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ProductAction $productAction,
         ProductResource $productResource,
         StoreManagerInterface $storeManager,
-        StockItemRepositoryInterface $stockItemRepository,
+        StockRegistryInterface $stockRegistry,
         ConfigInterface $config,
     ) {
         $this->productRepository = $productRepository;
         $this->productAction = $productAction;
         $this->productResource = $productResource;
         $this->storeManager = $storeManager;
-        $this->stockItemRepository = $stockItemRepository;
+        $this->stockRegistry = $stockRegistry;
         $this->config = $config;
     }
 
@@ -121,11 +132,11 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         $this->productAction->updateAttributes([$entityId], $attribues, $storeId);
 
         if (!empty($stockAttributes)) {
-            $stockItem = $this->stockItemRepository->get($entityId);
+            $stockItem = $this->stockRegistry->getStockItem($entityId);
             foreach ($stockAttributes as $stockAttribute => $value) {
                 $stockItem->setData($stockAttribute, $value);
             }
-            $this->stockItemRepository->save($stockItem);
+            $this->stockRegistry->updateStockItemBySku($attribues['sku'], $stockItem);
         }
 
         return true;
