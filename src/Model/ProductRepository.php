@@ -6,6 +6,7 @@
 
 namespace ReachDigital\ImprovedApi\Model;
 
+use Magento\Backend\App\ConfigInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
@@ -16,6 +17,16 @@ use Magento\CatalogInventory\Api\StockItemRepositoryInterface;
 
 class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductRepositoryInterface
 {
+    public const XML_PATH_QUICK_API_ENABLED = 'improved_api/general/enabled';
+
+    public const NON_QUICK_ATTRIBUTES = [
+        'media_gallery',
+        'options',
+        'tier_price',
+        'ignore_links_flag',
+        'attribute_set_id',
+    ];
+
     /** @var ProductRepositoryInterface $productRepository */
     private $productRepository;
 
@@ -27,6 +38,8 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
 
     private StockItemRepositoryInterface $stockItemRepository;
 
+    private ConfigInterface $config;
+
     /**
      * @param ProductRepositoryInterface $productRepository
      */
@@ -36,12 +49,14 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         ProductResource $productResource,
         StoreManagerInterface $storeManager,
         StockItemRepositoryInterface $stockItemRepository,
+        ConfigInterface $config,
     ) {
         $this->productRepository = $productRepository;
         $this->productAction = $productAction;
         $this->productResource = $productResource;
         $this->storeManager = $storeManager;
         $this->stockItemRepository = $stockItemRepository;
+        $this->config = $config;
     }
 
     /**
@@ -49,11 +64,35 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
      */
     public function update(ProductInterface $product, ProductInterface $productDefault = null)
     {
-        $quick = true;
-        if ($quick) {
+        if (
+            $this->config->isSetFlag(self::XML_PATH_QUICK_API_ENABLED) &&
+            $this->canUseQuickUpdate($product, $productDefault)
+        ) {
             return $this->quickUpdate($product, $productDefault);
         }
+
         return $this->repositoryUpdate($product, $productDefault);
+    }
+
+    // Currently only stock and normal attributes are implemented
+    // if other attributes like images or links are present quick update is not allowed.
+    public function canUseQuickUpdate(ProductInterface $product, ProductInterface $productDefault = null): bool
+    {
+        if ($productDefault) {
+            if (!$this->canUseQuickUpdate($productDefault)) {
+                return false;
+            }
+        }
+        //        Only stock_item is allowed as extension attribute
+        $extensionAttributes = $product->getExtensionAttributes()->__toArray();
+        if (
+            count($extensionAttributes) > 1 ||
+            (count($extensionAttributes) === 1 && !isset($extensionAttributes['stock_item']))
+        ) {
+            return false;
+        }
+
+        return !array_intersect(array_keys($product->getData()), self::NON_QUICK_ATTRIBUTES);
     }
 
     public function repositoryUpdate(ProductInterface $product, ProductInterface $productDefault = null)
@@ -120,11 +159,13 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
     public function getAttributes(ProductInterface $product, ProductInterface $productDefault = null): array
     {
         $attributes = [];
-        foreach ($productDefault->getData() as $attribute => $value) {
-            if ($attribute === 'extension_attributes') {
-                continue;
+        if ($productDefault) {
+            foreach ($productDefault->getData() as $attribute => $value) {
+                if (in_array($attribute, ['extension_attributes', 'created_at', 'entity_id'])) {
+                    continue;
+                }
+                $attributes[$attribute] = $value;
             }
-            $attributes[$attribute] = $value;
         }
         foreach ($product->getData() as $attribute => $value) {
             if ($attribute === 'extension_attributes') {
