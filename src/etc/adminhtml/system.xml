@@ -12,16 +12,15 @@
             <label>Improved api</label>
             <tab>reach_digital_config</tab>
             <resource>ReachDigital_Api::config</resource>
-            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="quick_save" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable quick product update</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Note: This uses the action updateAttributes and the StockRegistry
-                        instead of the product repository to update products faster but might give issues when using msi
-                        and won't work with certain changes like media_gallery or linked_products.</comment>
+                    <comment><![CDATA[<b style="color:#ff0000;">Experimental, please note:</b> This uses the action updateAttributes and the StockRegistry
+                        instead of the product repository to update products faster but might give issues when using MSI
+                        and won't work with certain changes like media_gallery or linked_products.]]></comment>
                 </field>
-
             </group>
         </section>
     </system>

@@ -85,14 +85,14 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         return $this->repositoryUpdate($product, $productDefault);
     }
 
-    // Currently only stock and normal attributes are implemented
-    // if other attributes like images or links are present quick update is not allowed.
+    /**
+     * Currently only stock and normal attributes are implemented
+     * if other attributes like images or links are present quick update is not allowed.
+     */
     public function canUseQuickUpdate(ProductInterface $product, ProductInterface $productDefault = null): bool
     {
-        if ($productDefault) {
-            if (!$this->canUseQuickUpdate($productDefault)) {
-                return false;
-            }
+        if ($productDefault && !$this->canUseQuickUpdate($productDefault)) {
+            return false;
         }
         //        Only stock_item is allowed as extension attribute
         $extensionAttributes = $product->getExtensionAttributes()->__toArray();
@@ -121,22 +121,22 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
 
     public function quickUpdate(ProductInterface $product, ProductInterface $productDefault = null)
     {
-        $attribues = $this->getAttributes($product, $productDefault);
+        $attributes = $this->getAttributes($product, $productDefault);
         $stockAttributes = $this->getStockAttributes($product, $productDefault);
-        if (!isset($attribues['sku'])) {
+        if (!isset($attributes['sku'])) {
             return false;
         }
 
-        $entityId = $this->productResource->getIdBySku($attribues['sku']);
+        $entityId = $this->productResource->getIdBySku($attributes['sku']);
         $storeId = $this->storeManager->getStore()->getId();
-        $this->productAction->updateAttributes([$entityId], $attribues, $storeId);
+        $this->productAction->updateAttributes([$entityId], $attributes, $storeId);
 
         if (!empty($stockAttributes)) {
             $stockItem = $this->stockRegistry->getStockItem($entityId);
             foreach ($stockAttributes as $stockAttribute => $value) {
                 $stockItem->setData($stockAttribute, $value);
             }
-            $this->stockRegistry->updateStockItemBySku($attribues['sku'], $stockItem);
+            $this->stockRegistry->updateStockItemBySku($attributes['sku'], $stockItem);
         }
 
         return true;
