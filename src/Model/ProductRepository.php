@@ -128,6 +128,9 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         }
 
         $entityId = $this->productResource->getIdBySku($attributes['sku']);
+        if (!$entityId) {
+            return false;
+        }
         $storeId = $this->storeManager->getStore()->getId();
         $this->productAction->updateAttributes([$entityId], $attributes, $storeId);
 
