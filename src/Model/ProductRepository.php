@@ -17,7 +17,7 @@ use Magento\CatalogInventory\Api\StockRegistryInterface;
 
 class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductRepositoryInterface
 {
-    public const XML_PATH_QUICK_API_ENABLED = 'improved_api/general/enabled';
+    public const XML_PATH_QUICK_API_ENABLED = 'improved_api/quick_save/enabled';
 
     public const NON_QUICK_ATTRIBUTES = [
         'media_gallery',
