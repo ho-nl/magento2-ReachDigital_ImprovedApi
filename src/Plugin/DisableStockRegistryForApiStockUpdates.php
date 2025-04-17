@@ -14,7 +14,7 @@ use Magento\Framework\Registry;
 
 class DisableStockRegistryForApiStockUpdates
 {
-    const XML_PATH_DISABLE_STOCK_REGISTRY = 'improved_api/stock_registry/disabled';
+    const XML_PATH_DISABLE_STOCK_REGISTRY = 'improved_api/stock_updates/disable_registry';
 
     public function __construct(public ScopeConfigInterface $scopeConfig, public Registry $registry)
     {
