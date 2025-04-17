@@ -22,9 +22,9 @@
                         and won't work with certain changes like media_gallery or linked_products.]]></comment>
                 </field>
             </group>
-            <group id="stock_registry" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Stock Registry</label>
-                <field id="disabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="stock_updates" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Stock Updates</label>
+                <field id="disable_registry" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Disable Stock Registry</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[<b style="color:#ff0000;">Please note:</b> The stock registry feature should only
@@ -35,6 +35,16 @@
                     <b>When disabling this, all stock item updates will be processed.</b><br/>
                     This may resolve issues when excessive (identical) API updates are triggered by an external system,
                     and changes made in Magento (by sales or manually via admin) are not overwritten by these updates.]]></comment>
+                </field>
+                <field id="add_backorder_qty" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Backorder Quantity</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[<b style="color:#ff0000;">Please note:</b> This may resolve issues when API
+                    updates by external systems do not take backorder quantities into account.<br/>
+                    Enabling this will make sure the negative quantity values at the stock items in Magento are added
+                    to inventory the quantity of updates processed by the consumer queue.<br/>
+                    This prevents issues with possible stock quantity returns when backorders are cancelled, resulting
+                    in stock that's not actually available.]]></comment>
                 </field>
             </group>
         </section>

@@ -29,4 +29,8 @@
         <plugin name="reachDigitalImprovedApiDisableStockRegistry"
                 type="ReachDigital\ImprovedApi\Plugin\DisableStockRegistryForApiStockUpdates"/>
     </type>
+    <type name="Magento\CatalogInventory\Model\StockRegistry">
+        <plugin name="reachDigitalImprovedApiPreventUpdatingBackorderQty"
+                type="ReachDigital\ImprovedApi\Plugin\AddBackorderQtyToApiInventoryUpdates"/>
+    </type>
 </config>
