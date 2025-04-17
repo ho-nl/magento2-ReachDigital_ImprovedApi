@@ -9,17 +9,32 @@
             <label>Reach Digital</label>
         </tab>
         <section id="improved_api" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Improved api</label>
+            <label>Improved API</label>
             <tab>reach_digital_config</tab>
             <resource>ReachDigital_Api::config</resource>
             <group id="quick_save" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>General</label>
+                <label>Quick Save</label>
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable quick product update</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[<b style="color:#ff0000;">Experimental, please note:</b> This uses the action updateAttributes and the StockRegistry
                         instead of the product repository to update products faster but might give issues when using MSI
                         and won't work with certain changes like media_gallery or linked_products.]]></comment>
+                </field>
+            </group>
+            <group id="stock_registry" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Stock Registry</label>
+                <field id="disabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Stock Registry</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[<b style="color:#ff0000;">Please note:</b> The stock registry feature should only
+                    be disabled when problems with updating inventory items via bulk REST API occur.<br/>
+                    By default, when updating inventory stock items in bulk via the REST API, the queue consumer uses
+                    a registry to cache stock item data. So when an API update comes along that has the same quantity
+                    to a previously applied update, the quantity update is ignored.<br/>
+                    <b>When disabling this, all stock item updates will be processed.</b><br/>
+                    This may resolve issues when excessive (identical) API updates are triggered by an external system,
+                    and changes made in Magento (by sales or manually via admin) are not overwritten by these updates.]]></comment>
                 </field>
             </group>
         </section>

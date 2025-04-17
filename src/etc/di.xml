@@ -20,4 +20,13 @@
     <type name="Magento\Catalog\Api\ProductAttributeMediaGalleryManagementInterface">
         <plugin name="reachDigitalCreateMediaUrlContent" type="ReachDigital\ImprovedApi\Plugin\Media\CreateMediaUrlContent"/>
     </type>
+
+    <type name="Magento\AsynchronousOperations\Model\MassConsumer">
+        <plugin name="reachDigitalImprovedApiFlagConsumerProcess"
+                type="ReachDigital\ImprovedApi\Plugin\FlagConsumerProcess"/>
+    </type>
+    <type name="Magento\CatalogInventory\Model\StockRegistryStorage">
+        <plugin name="reachDigitalImprovedApiDisableStockRegistry"
+                type="ReachDigital\ImprovedApi\Plugin\DisableStockRegistryForApiStockUpdates"/>
+    </type>
 </config>
