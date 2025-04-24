@@ -20,7 +20,7 @@ class DisableStockRegistryForApiStockUpdates
     {
     }
 
-    public function aroundGetStockItem(StockRegistryStorage $subject, callable $proceed, int $productId, int $scopeId)
+    public function aroundGetStockItem(StockRegistryStorage $subject, callable $proceed, $productId, $scopeId)
     {
         if (
             $this->registry->registry(FlagConsumerProcess::FLAG) &&
