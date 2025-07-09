@@ -34,7 +34,7 @@ class ImageUrlEntryConverter extends ImageEntryConverter
      * @param UrlContentInterface|null $urlContent
      * @return array|array[]
      */
-    public function convertFromImageUrl(UrlContentInterface $urlContent = null): array
+    public function convertFromImageUrl(?UrlContentInterface $urlContent = null): array
     {
         if ($urlContent->getUrl() === null) {
             return [];
