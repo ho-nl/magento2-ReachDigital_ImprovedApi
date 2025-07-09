@@ -73,7 +73,7 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
     /**
      * {@inheritdoc}
      */
-    public function update(ProductInterface $product, ProductInterface $productDefault = null)
+    public function update(ProductInterface $product, ?ProductInterface $productDefault = null)
     {
         if (
             $this->config->isSetFlag(self::XML_PATH_QUICK_API_ENABLED) &&
@@ -89,7 +89,7 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
      * Currently only stock and normal attributes are implemented
      * if other attributes like images or links are present quick update is not allowed.
      */
-    public function canUseQuickUpdate(ProductInterface $product, ProductInterface $productDefault = null): bool
+    public function canUseQuickUpdate(ProductInterface $product, ?ProductInterface $productDefault = null): bool
     {
         if ($productDefault && !$this->canUseQuickUpdate($productDefault)) {
             return false;
@@ -106,7 +106,7 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         return !array_intersect(array_keys($product->getData()), self::NON_QUICK_ATTRIBUTES);
     }
 
-    public function repositoryUpdate(ProductInterface $product, ProductInterface $productDefault = null)
+    public function repositoryUpdate(ProductInterface $product, ?ProductInterface $productDefault = null)
     {
         $existingProduct = $this->productRepository->get($product->getSku());
 
@@ -119,7 +119,7 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         return true;
     }
 
-    public function quickUpdate(ProductInterface $product, ProductInterface $productDefault = null)
+    public function quickUpdate(ProductInterface $product, ?ProductInterface $productDefault = null)
     {
         $attributes = $this->getAttributes($product, $productDefault);
         $stockAttributes = $this->getStockAttributes($product, $productDefault);
@@ -145,7 +145,7 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         return true;
     }
 
-    public function getStockAttributes(ProductInterface $product, ProductInterface $productDefault = null): array
+    public function getStockAttributes(ProductInterface $product, ?ProductInterface $productDefault = null): array
     {
         $stockAttributes = [];
         if ($productDefault !== null) {
@@ -170,7 +170,7 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
         return $stockAttributes;
     }
 
-    public function getAttributes(ProductInterface $product, ProductInterface $productDefault = null): array
+    public function getAttributes(ProductInterface $product, ?ProductInterface $productDefault = null): array
     {
         $attributes = [];
         if ($productDefault) {
@@ -199,7 +199,7 @@ class ProductRepository implements \ReachDigital\ImprovedApi\Api\ProductReposito
      *
      * @return bool         True if data has changed, false if data hasn't changed.
      */
-    private function applyData(Product $existingProduct, Product $productUpdate, Product $productDefault = null)
+    private function applyData(Product $existingProduct, ?Product $productUpdate, ?Product $productDefault = null)
     {
         $dataChanged = false;
 

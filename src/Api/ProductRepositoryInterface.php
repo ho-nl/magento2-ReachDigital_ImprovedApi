@@ -25,6 +25,6 @@ interface ProductRepositoryInterface
      */
     public function update(
         \Magento\Catalog\Api\Data\ProductInterface $product,
-        \Magento\Catalog\Api\Data\ProductInterface $productDefault = null
+        ?\Magento\Catalog\Api\Data\ProductInterface $productDefault = null,
     );
 }
